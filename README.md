@@ -12,35 +12,26 @@ Setup & Deployment Steps
 Clone the repo and initialize Supabase:
 
 bash
-Copy
-Edit
 supabase init
 Apply the schema:
 
 bash
-Copy
-Edit
 supabase db reset
 Set environment variables in your Supabase project (via dashboard or CLI):
 
 ini
-Copy
-Edit
+
 SUPABASE_URL=your-supabase-url
 SUPABASE_ANON_KEY=your-anon-key
 Deploy edge functions:
 
 bash
-Copy
-Edit
 supabase functions deploy post_notes
 supabase functions deploy get_notes
 Schema Design
 File: schema.sql
 
 sql
-Copy
-Edit
 create table if not exists notes (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references auth.users(id),
@@ -62,21 +53,16 @@ post_notes.ts
 Handles POST /notes to create a new note.
 
 ts
-Copy
-Edit
 // Why: POST method is standard for creating resources; body used for passing title/content securely.
 get_notes.ts
 Handles GET /notes to fetch all notes for the authenticated user.
 
 ts
-Copy
-Edit
 // Why: GET method is standard for retrieving data; no body needed, only auth token.
 Demo Commands
 Create a Note
 bash
 Copy
-Edit
 curl -X POST https://your-project-id.functions.supabase.co/post_notes \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
@@ -84,8 +70,7 @@ curl -X POST https://your-project-id.functions.supabase.co/post_notes \
 Expected response:
 
 json
-Copy
-Edit
+
 [
   {
     "id": "uuid-here",
@@ -97,15 +82,13 @@ Edit
 ]
 List All Notes
 bash
-Copy
-Edit
+
 curl -X GET https://your-project-id.functions.supabase.co/get_notes \
   -H "Authorization: Bearer YOUR_JWT_TOKEN"
 Expected response:
 
 json
-Copy
-Edit
+
 [
   {
     "id": "uuid-here",
